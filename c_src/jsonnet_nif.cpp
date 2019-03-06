@@ -99,5 +99,5 @@ static ErlNifFunc nif_funcs[] = {
 };
 
 extern "C" {
-    ERL_NIF_INIT(jsonnet, nif_funcs, NULL, NULL, NULL, NULL);
+    ERL_NIF_INIT(jsonnet, nif_funcs, NULL, NULL, NULL, NULL)
 }
