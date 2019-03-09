@@ -11,7 +11,7 @@ Summary:        Jsonnet for Erlang library
 License:        Apache License, Version 2.0
 Group:          Development/Libraries/Other
 Url:            https://github.com/ray2501/erlang-jsonnet
-Source:         %{app_name}-%{version}.tar.gz
+Source:         %{name}-%{version}.tar.gz
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libstdc++-devel
@@ -23,7 +23,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 It is a Jsonnet for Erlang library.
 
 %prep
-%setup -q -n %{app_name}-%{version}
+%setup -q -n %{name}-%{version}
 
 %build
 rebar compile
