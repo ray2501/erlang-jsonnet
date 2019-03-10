@@ -1,6 +1,6 @@
-%%
+%% ----------------------------------
 %% Jsonnet for Erlang library
-%%
+%% ----------------------------------
 
 -module(jsonnet).
 
@@ -11,18 +11,27 @@
 -define(APPNAME, jsonnet).
 -define(LIBNAME, "jsonnet_nif").
 
--spec evaluateFile(string()) -> string() | {error, any()}.
--spec evaluateSnippet(string()) -> string() | {error, any()}.
 
 %%====================================================================
 %% API functions
 %%====================================================================
 
+%% @doc Accepts a file name string
+-spec evaluateFile(string()) -> string() | {error, any()}.
+
 evaluateFile(_) ->
     not_loaded(?LINE).
 
+%% @doc Accepts a string to evaluate
+-spec evaluateSnippet(string()) -> string() | {error, any()}.
+
 evaluateSnippet(_) ->
     not_loaded(?LINE).
+
+
+%%====================================================================
+%% Internal functions
+%%====================================================================
 
 init() ->
     SoName = case code:priv_dir(?APPNAME) of
