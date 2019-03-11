@@ -94,8 +94,8 @@ evaluateSnippet(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 }
 
 static ErlNifFunc nif_funcs[] = {
-    {"evaluateFile", 1, evaluateFile},
-    {"evaluateSnippet", 1, evaluateSnippet}
+    {"evaluateFile", 1, evaluateFile, ERL_NIF_DIRTY_JOB_CPU_BOUND},
+    {"evaluateSnippet", 1, evaluateSnippet, ERL_NIF_DIRTY_JOB_CPU_BOUND}
 };
 
 extern "C" {

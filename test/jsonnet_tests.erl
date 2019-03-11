@@ -2,7 +2,7 @@
 -include_lib("eunit/include/eunit.hrl").
 
 snippet_string_test() ->
-    ?assertEqual("1\n", jsonnet:evaluateSnippet("1")).
+    ?assertEqual("{\n   \"name\": \"Bob\"\n}\n", jsonnet:evaluateSnippet("{name: 'Bob'}")).
 
 snippet_number_test() ->
     ?_assertException(error, function_clause, jsonnet:evaluateSnippet(1)).
