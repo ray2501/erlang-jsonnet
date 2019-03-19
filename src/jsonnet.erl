@@ -17,13 +17,13 @@
 %%====================================================================
 
 %% @doc Accepts a file name string
--spec evaluateFile(string()) -> string() | {error, any()}.
+-spec evaluateFile(Filename :: string()) -> string() | {error, any()}.
 
 evaluateFile(_) ->
     not_loaded(?LINE).
 
 %% @doc Accepts a string to evaluate
--spec evaluateSnippet(string()) -> string() | {error, any()}.
+-spec evaluateSnippet(Snippet :: string()) -> string() | {error, any()}.
 
 evaluateSnippet(_) ->
     not_loaded(?LINE).
