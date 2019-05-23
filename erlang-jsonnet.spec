@@ -16,7 +16,6 @@ BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libstdc++-devel
 BuildRequires:  erlang
-BuildRequires:  erlang-rebar
 Requires:       erlang
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -27,7 +26,7 @@ It is a Jsonnet for Erlang library.
 %setup -q -n %{name}-%{version}
 
 %build
-rebar compile
+make
 
 %install
 for dir in ebin priv ; do
