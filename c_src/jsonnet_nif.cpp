@@ -8,8 +8,6 @@ extern "C" {
     ERL_NIF_TERM mk_error(ErlNifEnv* env, const char* mesg);
 }
 
-#define MAXBUFLEN 1024
-
 ERL_NIF_TERM
 mk_atom(ErlNifEnv* env, const char* atom)
 {
@@ -32,20 +30,31 @@ mk_error(ErlNifEnv* env, const char* mesg)
 static ERL_NIF_TERM
 evaluateFile(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
-    char buffer[MAXBUFLEN];
-    int error;
-    char *output;
-    struct JsonnetVm *vm;    
+    char *buffer = NULL;
+    int error = 0;
+    char *output = NULL;
+    struct JsonnetVm *vm = NULL;
+    unsigned int length = 0;
 	
     if(argc != 1)
     {
         return enif_make_badarg(env);
     }
 
-    (void)memset(&buffer, '\0', sizeof(buffer));
+    if(!enif_get_list_length(env, argv[0],&length)) {
+        return enif_make_badarg(env);
+    }
 
-    if (enif_get_string(env, argv[0], buffer, sizeof(buffer), ERL_NIF_LATIN1) < 1)
-    {	    
+    buffer = (char *) malloc(sizeof(char) * length + 1);
+    if(!buffer) {
+	return mk_error(env, "no_memory");
+    }
+
+    (void)memset(buffer, '\0', length + 1);
+
+    if (enif_get_string(env, argv[0], buffer, length + 1, ERL_NIF_LATIN1) < 1)
+    {
+        if(buffer) free(buffer);
         return enif_make_badarg(env);
     }
 
@@ -55,29 +64,42 @@ evaluateFile(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
         jsonnet_realloc(vm, output, 0);
         jsonnet_destroy(vm);
 
-	return mk_error(env, "failed");
+        if(buffer) free(buffer);
+        return mk_error(env, "failed");
     }
 
+    if(buffer) free(buffer);
     return enif_make_string(env, output, ERL_NIF_LATIN1);
 }
 
 static ERL_NIF_TERM
 evaluateSnippet(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
-    char buffer[MAXBUFLEN];
-    int error;
-    char *output;
-    struct JsonnetVm *vm;    
+    char *buffer = NULL;
+    int error = 0;
+    char *output = NULL;
+    struct JsonnetVm *vm = NULL;
+    unsigned int length = 0;
 	
     if(argc != 1)
     {
         return enif_make_badarg(env);
     }
 
-    (void)memset(&buffer, '\0', sizeof(buffer));
+    if(!enif_get_list_length(env, argv[0],&length)) {
+        return enif_make_badarg(env);
+    }
 
-    if (enif_get_string(env, argv[0], buffer, sizeof(buffer), ERL_NIF_LATIN1) < 1)
+    buffer = (char *) malloc(sizeof(char) * length + 1);
+    if(!buffer) {
+        return mk_error(env, "no_memory");
+    }
+
+    (void)memset(buffer, '\0', length + 1);
+
+    if (enif_get_string(env, argv[0], buffer, length + 1, ERL_NIF_LATIN1) < 1)
     {	    
+        if(buffer) free(buffer);
         return enif_make_badarg(env);
     }
 
@@ -87,9 +109,11 @@ evaluateSnippet(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
         jsonnet_realloc(vm, output, 0);
         jsonnet_destroy(vm);
 
+        if(buffer) free(buffer);
 	return mk_error(env, "failed");
     }
 
+    if(buffer) free(buffer);
     return enif_make_string(env, output, ERL_NIF_LATIN1);
 }
 
