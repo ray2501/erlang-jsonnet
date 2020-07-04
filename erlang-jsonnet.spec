@@ -4,7 +4,7 @@
 
 %define app_name jsonnet
 Name:           erlang-%{app_name}
-Version:        0.4.0
+Version:        0.5.0
 Release:        0
 %define app_ver %(echo "%{version}" | cut -d "+" -f1)
 Summary:        Jsonnet for Erlang library
