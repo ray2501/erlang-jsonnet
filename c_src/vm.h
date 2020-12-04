@@ -17,7 +17,7 @@ limitations under the License.
 #ifndef JSONNET_VM_H
 #define JSONNET_VM_H
 
-#include <libjsonnet.h>
+#include "libjsonnet.h"
 
 #include "ast.h"
 
