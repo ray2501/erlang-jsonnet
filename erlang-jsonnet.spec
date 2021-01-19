@@ -8,7 +8,7 @@ Version:        0.6.0
 Release:        0
 %define app_ver %(echo "%{version}" | cut -d "+" -f1)
 Summary:        Jsonnet for Erlang library
-License:        Apache License, Version 2.0
+License:        Apache-2.0
 Group:          Development/Libraries/Other
 Url:            https://github.com/ray2501/erlang-jsonnet
 Source:         %{name}-%{version}.tar.gz
